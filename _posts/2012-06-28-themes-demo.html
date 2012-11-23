@@ -29,7 +29,8 @@ categories:
 	
 	$(document).ready(function() {
 		var initEditor = function() {
-			$("textarea").sceditorBBCodePlugin({
+			$("textarea").sceditor({
+				plugins: 'bbcode',
 				style: "/minified/jquery.sceditor.default.min.css"
 			});
 		};
@@ -37,7 +38,7 @@ categories:
 		$("#theme").change(function() {
 			var theme = "/minified/themes/" + $(this).val() + ".min.css";
 
-			$("textarea").data("sceditor").destory();
+			$("textarea").data("sceditor").destroy();
 			$("#default").remove();
 			$("#theme-style").remove();
 			
@@ -61,5 +62,6 @@ categories:
 		<option value="modern">Modern</option>
 		<option value="office-toolbar">Office Toolbar</option>
 		<option value="office">Office</option>
+		<option value="square">Square</option>
 	</select>
 </p>

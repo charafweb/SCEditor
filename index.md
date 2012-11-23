@@ -11,7 +11,8 @@ permalink: /
 <link rel="stylesheet" href="minified/themes/default.min.css" type="text/css" media="all" />
 <script type="text/javascript" src="minified/jquery.sceditor.min.js"> </script>
 <script>$(document).ready(function() {
-	$("textarea").sceditorBBCodePlugin({
+	$("textarea").sceditor({
+		plugins: 'bbcode',
 		style: "minified/jquery.sceditor.default.min.css"
 	});
 });</script>
@@ -39,7 +40,9 @@ or for the BBCode WYSIWYG editor do:
 
 {% highlight javascript %}
 $(document).ready(function() {
-	$("textarea").sceditorBBCodePlugin();
+	$("textarea").sceditor({
+		plugins: 'bbcode'
+	});
 });
 {% endhighlight %}
 
@@ -79,14 +82,15 @@ or via [Flattr](http://flattr.com/thing/400345/SCEditor)
 
 
 ## Credits
-**SCeditor by:**<br />
+
+**SCeditor by:**  
 Sam Clarke ([@samclarke](http://github.com/samclarke))
 
-**Nomicons: The Full Monty Emoticons by:**<br />
-Oscar Gruno, aka Nominell v. 2.0 -> oscargruno@mac.com<br />
+**Nomicons: The Full Monty Emoticons by:**  
+Oscar Gruno, aka Nominell v. 2.0 -> oscargruno@mac.com  
 Andy Fedosjeenko, aka Nightwolf -> bobo@animevanguard.com
 
-**Icons by:**<br />
-Mark James (http://www.famfamfam.com/lab/icons/silk/)<br />
+**Icons by:**  
+Mark James (http://www.famfamfam.com/lab/icons/silk/)  
 Licensed under the [Creative Commons CC-BY license](http://creativecommons.org/licenses/by/3.0/).
 

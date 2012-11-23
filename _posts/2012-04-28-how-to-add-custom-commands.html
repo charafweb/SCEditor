@@ -32,12 +32,62 @@ categories:
 	.sceditor-header-option:hover { background: #eee; }
 </style>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"> </script>
-<link rel="stylesheet" href="minified/themes/default.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/minified/themes/default.min.css" type="text/css" media="all" />
 <script type="text/javascript" src="/minified/jquery.sceditor.min.js"> </script>
 <script>$(document).ready(function() {
-	$.sceditor.setCommand(
+	$.sceditor.command.set(
 		"headers",
-		function(caller) {
+		{
+			exec: function(caller) {
+				var	editor    = this,
+					content   = $("<div />"),
+					clickFunc = function (e) {
+						editor.execCommand("formatblock", "<h" + $(this).data('sceditor-hsize') + ">");
+						editor.closeDropDown(true);
+						e.preventDefault();
+					};
+
+				for (var i=1; i<= 6; i++) {
+					content.append(
+						$('<a class="sceditor-header-option" href="#"><h' + i + '>Heading ' + i + '</h' + i + '></a>')
+							.data('sceditor-hsize', i)
+							.click(clickFunc));
+				}
+
+				editor.createDropDown(caller, "header-picker", content);
+		 	},
+			tooltip: "Format Headers"
+		}
+	);
+
+	$.sceditorBBCodePlugin.bbcode
+		.set("h1", { tags: { h1: null }, format: "[h1]{0}[/h1]", html: "<h1>{0}</h1>" })
+		.set("h2", { tags: { h2: null }, format: "[h2]{0}[/h2]", html: "<h2>{0}</h2>" })
+		.set("h3", { tags: { h3: null }, format: "[h3]{0}[/h3]", html: "<h3>{0}</h3>" })
+		.set("h4", { tags: { h4: null }, format: "[h4]{0}[/h4]", html: "<h4>{0}</h4>" })
+		.set("h5", { tags: { h5: null }, format: "[h5]{0}[/h5]", html: "<h5>{0}</h5>" })
+		.set("h6", { tags: { h6: null }, format: "[h6]{0}[/h6]", html: "<h6>{0}</h6>" });
+
+	$("#demo-cust-cmd").sceditor({
+		plugins: 'bbcode',
+		toolbar: "headers|source",
+		style: "/minified/jquery.sceditor.default.min.css",
+		emoticonsRoot: "/"
+	});
+});
+</script>
+
+<p><textarea style="width:600px; height:300px" id="demo-cust-cmd">[h1]Header 1[/h1][h2]Sub header[/h2]Normal text</textarea></p>
+
+<h2>Code behind it</h2>
+
+<p>To add the HTML command, use the $.sceditor.command.set function:</p>
+
+{% highlight javascript %}
+$.sceditor.command.set(
+	"headers",
+	{
+		exec: function(caller) {
 			var	editor    = this,
 				content   = $("<div />"),
 				clickFunc = function (e) {
@@ -55,52 +105,8 @@ categories:
 
 			editor.createDropDown(caller, "header-picker", content);
 	 	},
-		"Format Headers"
-	);
-
-	$.sceditorBBCodePlugin.setCommand("h1", { h1: null }, null, "[h1]{0}[/h1]", "<h1>{0}</h1>");
-	$.sceditorBBCodePlugin.setCommand("h2", { h2: null }, null, "[h2]{0}[/h2]", "<h2>{0}</h2>");
-	$.sceditorBBCodePlugin.setCommand("h3", { h3: null }, null, "[h3]{0}[/h3]", "<h3>{0}</h3>");
-	$.sceditorBBCodePlugin.setCommand("h4", { h4: null }, null, "[h4]{0}[/h4]", "<h4>{0}</h4>");
-	$.sceditorBBCodePlugin.setCommand("h5", { h5: null }, null, "[h5]{0}[/h5]", "<h5>{0}</h5>");
-	$.sceditorBBCodePlugin.setCommand("h6", { h6: null }, null, "[h6]{0}[/h6]", "<h6>{0}</h6>");
-
-	$("#demo-cust-cmd").sceditorBBCodePlugin({
-		toolbar: "headers|source",
-		style: "/minified/jquery.sceditor.default.min.css",
-		emoticonsRoot: "/"
-	});
-});
-</script>
-
-<p><textarea style="width:600px; height:300px" id="demo-cust-cmd">[h1]Header 1[/h1][h2]Sub header[/h2]Normal text</textarea></p>
-
-<h2>Code behind it</h2>
-
-<p>To add the HTML command, use the $.sceditor.setCommand function:</p>
-
-{% highlight javascript %}
-$.sceditor.setCommand(
-	"headers",
-	function(caller) {
-		var	editor    = this,
-			content   = $("<div />"),
-			clickFunc = function (e) {
-				editor.execCommand("formatblock", "<h" + $(this).data('sceditor-hsize') + ">");
-				editor.closeDropDown(true);
-				e.preventDefault();
-			};
-
-		for (var i=1; i<= 6; i++) {
-			content.append(
-				$('<a class="sceditor-header-option" href="#"><h' + i + '>Heading ' + i + '</h' + i + '></a>')
-					.data('sceditor-hsize', i)
-					.click(clickFunc));
-		}
-
-		editor.createDropDown(caller, "header-picker", content);
- 	},
-	"Format Headers"
+		tooltip: "Format Headers"
+	}
 );
 {% endhighlight %}
 
@@ -118,14 +124,15 @@ $.sceditor.setCommand(
 .sceditor-header-option:hover { background: #eee; }
 {% endhighlight %}
 
-<p>Then, if using BBCode output, add the BBCode commands using the $.sceditorBBCodePlugin.setCommand function:</p>
+<p>Then, if using BBCode output, add the BBCode commands using the $.sceditorBBCodePlugin.bbcode.set function:</p>
 {% highlight javascript %}
-$.sceditorBBCodePlugin.setCommand("h1", { h1: null }, null, "[h1]{0}[/h1]", "<h1>{0}</h1>");
-$.sceditorBBCodePlugin.setCommand("h2", { h2: null }, null, "[h2]{0}[/h2]", "<h2>{0}</h2>");
-$.sceditorBBCodePlugin.setCommand("h3", { h3: null }, null, "[h3]{0}[/h3]", "<h3>{0}</h3>");
-$.sceditorBBCodePlugin.setCommand("h4", { h4: null }, null, "[h4]{0}[/h4]", "<h4>{0}</h4>");
-$.sceditorBBCodePlugin.setCommand("h5", { h5: null }, null, "[h5]{0}[/h5]", "<h5>{0}</h5>");
-$.sceditorBBCodePlugin.setCommand("h6", { h6: null }, null, "[h6]{0}[/h6]", "<h6>{0}</h6>");
+$.sceditorBBCodePlugin.bbcode
+	.set("h1", { tags: { h1: null }, format: "[h1]{0}[/h1]", html: "<h1>{0}</h1>" })
+	.set("h2", { tags: { h2: null }, format: "[h2]{0}[/h2]", html: "<h2>{0}</h2>" })
+	.set("h3", { tags: { h3: null }, format: "[h3]{0}[/h3]", html: "<h3>{0}</h3>" })
+	.set("h4", { tags: { h4: null }, format: "[h4]{0}[/h4]", html: "<h4>{0}</h4>" })
+	.set("h5", { tags: { h5: null }, format: "[h5]{0}[/h5]", html: "<h5>{0}</h5>" })
+	.set("h6", { tags: { h6: null }, format: "[h6]{0}[/h6]", html: "<h6>{0}</h6>" });
 {% endhighlight %}
 
 <p>Finally add the command to the toolbar of the editor:</p>

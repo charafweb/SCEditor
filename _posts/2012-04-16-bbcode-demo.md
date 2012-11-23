@@ -13,8 +13,9 @@ categories:
 <link rel="stylesheet" href="/minified/themes/default.min.css" type="text/css" media="all" />
 <script type="text/javascript" src="/minified/jquery.sceditor.min.js"> </script>
 <script>$(document).ready(function() {
-	$("#demo-bbcode").sceditorBBCodePlugin({
+	$("#demo-bbcode").sceditor({
 		style: "/minified/jquery.sceditor.default.min.css",
+		plugins: 'bbcode',
 		emoticons: {
 			dropdown: {
 				":)": "/emoticons/smile.png",
@@ -73,7 +74,8 @@ Include the required JavaScript and CSS:
 Then initialize the plugin on any textareas you want to convert:
 {% highlight html %}
 <script>$(document).ready(function() {
-	$("textarea").sceditorBBCodePlugin({
+	$("textarea").sceditor({
+		plugins: 'bbcode',
 		style: "/minified/jquery.sceditor.default.min.css"
 	});
 });</script>

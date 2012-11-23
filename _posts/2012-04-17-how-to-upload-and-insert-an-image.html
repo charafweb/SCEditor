@@ -15,7 +15,8 @@ categories:
 <script type="text/javascript" src="/minified/jquery.sceditor.min.js"> </script>
 <script>
 $(document).ready(function() {
-	$("#demo-image").sceditorBBCodePlugin({
+	$("#demo-image").sceditor({
+		plugins: 'bbcode',
 		style: "/minified/jquery.sceditor.default.min.css",
 		emoticons: {
 			dropdown: {
@@ -60,7 +61,7 @@ $(document).ready(function() {
 		}
 	});
 
-	window.sceditorInstance = $("#demo-image").data("sceditor");
+	window.sceditorInstance = $("#demo-image").sceditor("instance");
 });
 </script>
 
@@ -101,11 +102,12 @@ $(document).ready(function() {
 
 {% highlight html %}
 <script>$(document).ready(function() {
-	$("textarea").sceditorBBCodePlugin({
+	$("textarea").sceditor({
+		plugins: 'bbcode',
 		style: "/minified/jquery.sceditor.default.min.css"
 	});
 
-	window.sceditorInstance = $("textarea").data("sceditor");
+	window.sceditorInstance = $("textarea").sceditor("instance");
 });</script>
 
 <textarea></textarea>

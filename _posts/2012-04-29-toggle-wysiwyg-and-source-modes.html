@@ -13,7 +13,8 @@ categories:
 <script type="text/javascript" src="/minified/jquery.sceditor.min.js"> </script>
 <script>
 $(document).ready(function() {
-	$("#demo-toggle").sceditorBBCodePlugin({
+	$("#demo-toggle").sceditor({
+		plugins: 'bbcode',
 		toolbar: "bold,italic,underline|source",
 		style: "/minified/jquery.sceditor.default.min.css",
 		emoticonsRoot: "/"
@@ -22,7 +23,7 @@ $(document).ready(function() {
 
 function toggle()
 {
-	$("#demo-toggle").data("sceditor").toggleTextMode();
+	$("#demo-toggle").data("sceditor").toggleSourceMode();
 }
 </script>
 
@@ -35,7 +36,8 @@ function toggle()
 
 {% highlight javascript %}
 $(document).ready(function() {
-	$("#demo-toggle").sceditorBBCodePlugin({
+	$("#demo-toggle").sceditor({
+		plugins: 'bbcode',
 		toolbar: "bold,italic,underline|source",
 		style: "/minified/jquery.sceditor.default.min.css",
 		emoticonsRoot: "/"

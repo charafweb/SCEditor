@@ -14,7 +14,8 @@ categories:
 <link rel="stylesheet" href="/minified/themes/default.min.css" type="text/css" media="all" />
 <script type="text/javascript" src="/minified/jquery.sceditor.min.js"> </script>
 <script>$(document).ready(function() {
-	$("#demo-quote").sceditorBBCodePlugin({
+	$("#demo-quote").sceditor({
+		plugins: 'bbcode',
 		style: "/minified/jquery.sceditor.default.min.css",
 		emoticons: {
 			dropdown: {
